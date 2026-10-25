@@ -1,0 +1,4 @@
+export default function LecturerCard({ lecturer, onBook }) {
+ const index=lecturer.id-1;
+ return <article className="lecturer"><div className="profile"><div className="portrait" role="img" aria-label={`Фото: ${lecturer.name}`} style={{backgroundPosition:`${(index%5)*25}% ${index<5?0:100}%`}}/><div><h3>{lecturer.name}</h3><p className="bio">{lecturer.bio.replaceAll('Стаж:', ' Стаж:').replaceAll('Учёная', ' Учёная')}</p><p>{lecturer.courses.map(c=>c.title).join(' · ')}</p></div></div><div className="program"><h4>Дисциплины и программа лекций</h4>{lecturer.courses.map(course=><details key={course.title}><summary>{course.title} <span>10 лекций</span></summary><p>{course.description}</p><ol>{course.lectures.map(lecture=><li key={lecture}>{lecture}</li>)}</ol></details>)}<h4>Тарифы</h4><ul className="tariffs">{lecturer.tariffs.map(tariff=><li key={tariff}><span>{tariff}</span><button onClick={()=>onBook(lecturer,tariff)}>Выбрать</button></li>)}</ul></div></article>;
+}
